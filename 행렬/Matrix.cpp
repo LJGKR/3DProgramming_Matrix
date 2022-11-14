@@ -5,14 +5,23 @@
 using namespace std;
 
 void main() {
-	Vec3 v;
-	Mat3 Scale;
+	
+	Mat3 m;
+	Mat3 r;
+	Mat3 k;
 
-	v = Vec3(1, 1);
-	Scale = Mat3(3,0,0,
-		       0,5,0,
-		       0,0,1);
+	m = Mat3(6, 5, 4,
+		4, 4, 4,
+		4, 4, 4);
 
-	Vec3 k = v * Scale;
+	r = Mat3(2, 2, 2,
+		2, 2, 2,
+		2, 2, 2);
+
+	m.print();
+	
+	k = m - r;
+
+	k.print();
 
 }
