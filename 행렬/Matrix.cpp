@@ -6,22 +6,21 @@ using namespace std;
 
 void main() {
 	
-	Mat3 m;
-	Mat3 r;
-	Mat3 k;
+	Vec3 v;
 
-	m = Mat3(6, 5, 4,
-		4, 4, 4,
-		4, 4, 4);
+	v = Vec3(2, 3, 4);
 
-	r = Mat3(2, 2, 2,
-		2, 2, 2,
-		2, 2, 2);
+	v.print();
 
-	m.print();
+	v.Transpose();
+
+
+	v.print();
+
+	v.Transpose();
+
+	v.print();
+
 	
-	k = m - r;
-
-	k.print();
 
 }

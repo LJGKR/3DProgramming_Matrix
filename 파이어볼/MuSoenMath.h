@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 using namespace std;
+float PI = 3.1415926;
 
 struct Mat3
 {
@@ -231,41 +232,38 @@ private:
 
 public:
 
-	bool t = true;
+	bool t = false;
 	float vec3[3][3];
 	float vec[3][3];
 
 	Vec3() {
-		this->vec3[0][0] = 0, this->vec3[1][0] = 0, this->vec3[2][0] = 0;
+		this->vec3[0][0] = 0, this->vec3[0][1] = 0, this->vec3[0][2] = 0;
 	}
 
-	Vec3(float v1, float v2, float v3) {
-		this->vec3[0][0] = v1, this->vec3[1][0] = v2, this->vec3[2][0] = v3;
+	Vec3(float x, float y, float z) {
+		this->vec3[0][0] = x, this->vec3[0][1] = y, this->vec3[0][2] = z;
 	}
 
-	Vec3 operator*( Mat3& ref) {                     //백터와 행렬의 연산
+	Vec3 operator*(Mat3& ref) {                     //백터와 행렬의 연산
 
+		Vec3 v;
 		if (t) {
-			this->vec[0][0] = vec3[0][0] * ref.mat3[0][0] + vec3[1][0] * ref.mat3[1][0] + vec3[2][0] * ref.mat3[2][0];
-			this->vec[1][0] = vec3[0][0] * ref.mat3[0][1] + vec3[1][0] * ref.mat3[1][1] + vec3[2][0] * ref.mat3[2][1];
-			this->vec[2][0] = vec3[0][0] * ref.mat3[0][2] + vec3[1][0] * ref.mat3[1][2] + vec3[2][0] * ref.mat3[2][2];
+			v.vec3[0][0] = vec3[0][0] * ref.mat3[0][0] + vec3[1][0] * ref.mat3[1][0] + vec3[2][0] * ref.mat3[2][0];
+			v.vec3[1][0] = vec3[0][0] * ref.mat3[0][1] + vec3[1][0] * ref.mat3[1][1] + vec3[2][0] * ref.mat3[2][1];
+			v.vec3[2][0] = vec3[0][0] * ref.mat3[0][2] + vec3[1][0] * ref.mat3[1][2] + vec3[2][0] * ref.mat3[2][2];
 
-			this->vec3[0][0] = vec[0][0], this->vec3[1][0] = vec[1][0], this->vec3[2][0] = vec[2][0];
-
-			return *this;
+			return v;
 		}
 		if (t == false) {
-			this->vec[0][0] = vec3[0][0] * ref.mat3[0][0] + vec3[0][1] * ref.mat3[1][0] + vec3[0][2] * ref.mat3[2][0];
-			this->vec[0][1] = vec3[0][0] * ref.mat3[0][1] + vec3[0][1] * ref.mat3[1][1] + vec3[0][2] * ref.mat3[2][1];
-			this->vec[0][2] = vec3[0][0] * ref.mat3[0][2] + vec3[0][1] * ref.mat3[1][2] + vec3[0][2] * ref.mat3[2][2];
+			v.vec3[0][0] = this->vec3[0][0] * ref.mat3[0][0] + this->vec3[0][1] * ref.mat3[1][0] + this->vec3[0][2] * ref.mat3[2][0];
+			v.vec3[0][1] = this->vec3[0][0] * ref.mat3[0][1] + this->vec3[0][1] * ref.mat3[1][1] + this->vec3[0][2] * ref.mat3[2][1];
+			v.vec3[0][2] = this->vec3[0][0] * ref.mat3[0][2] + this->vec3[0][1] * ref.mat3[1][2] + this->vec3[0][2] * ref.mat3[2][2];
 
-			this->vec3[0][0] = vec[0][0], this->vec3[0][1] = vec[0][1], this->vec3[0][2] = vec[0][2];
-			
-			return *this;
+			return v;
 		}
 	}
 
-	Vec3 operator*( Vec3& rv) {
+	Vec3 operator*(Vec3& rv) {
 		if (t == true) {
 			this->vec[0][0] = vec3[0][0] * rv.vec3[0][0];
 			this->vec[1][0] = vec3[1][0] * rv.vec3[1][0];
@@ -287,7 +285,7 @@ public:
 		return *this;
 	}
 
-	Vec3 operator+( Vec3& ref) {
+	Vec3 operator+(Vec3& ref) {
 		if (t == true) {
 			this->vec[0][0] = vec3[0][0] + ref.vec3[0][0];
 			this->vec[1][0] = vec3[1][0] + ref.vec3[1][0];
@@ -309,7 +307,7 @@ public:
 		return *this;
 	}
 
-	Vec3 operator-( Vec3& ref) {
+	Vec3 operator-(Vec3& ref) {
 		if (t == true) {
 			this->vec[0][0] = vec3[0][0] - ref.vec3[0][0];
 			this->vec[1][0] = vec3[1][0] - ref.vec3[1][0];
@@ -352,14 +350,14 @@ public:
 		if (t == true)
 		{
 			for (int i = 0; i < 3; i++) {
-				cout << " " <<"{" << vec3[i][0] << "}";
+				cout << " " << "{" << vec3[i][0] << "}";
 				cout << endl;
 			}
 		}
 		else if (t == false)
 		{
 			for (int i = 0; i < 3; i++) {
-				cout  <<"{"<< vec3[0][i]<<"}";
+				cout << "{" << vec3[0][i] << "}";
 			}
 			cout << endl;
 		}
@@ -421,7 +419,7 @@ public:
 			this->vec[1][0] = vec4[0][0] * ref.mat4[0][1] + vec4[1][0] * ref.mat4[1][1] + vec4[2][0] * ref.mat4[2][1] + vec4[3][0] * ref.mat4[3][1];
 			this->vec[2][0] = vec4[0][0] * ref.mat4[0][2] + vec4[1][0] * ref.mat4[1][2] + vec4[2][0] * ref.mat4[2][2] + vec4[3][0] * ref.mat4[3][2];
 			this->vec[3][0] = vec4[0][0] * ref.mat4[0][3] + vec4[1][0] * ref.mat4[1][3] + vec4[2][0] * ref.mat4[2][3] + vec4[3][0] * ref.mat4[3][3];
-			
+
 
 			this->vec4[0][0] = vec[0][0], this->vec4[1][0] = vec[1][0], this->vec4[2][0] = vec[2][0], this->vec4[3][0] = vec[3][0];
 
@@ -432,7 +430,7 @@ public:
 			this->vec[0][1] = vec4[0][0] * ref.mat4[0][1] + vec4[0][1] * ref.mat4[1][1] + vec4[0][2] * ref.mat4[2][1] + vec4[0][3] * ref.mat4[3][1];
 			this->vec[0][2] = vec4[0][0] * ref.mat4[0][2] + vec4[0][1] * ref.mat4[1][2] + vec4[0][2] * ref.mat4[2][2] + vec4[0][3] * ref.mat4[3][2];
 			this->vec[0][3] = vec4[0][0] * ref.mat4[0][3] + vec4[0][1] * ref.mat4[1][3] + vec4[0][2] * ref.mat4[2][3] + vec4[0][3] * ref.mat4[3][3];
-			
+
 
 			this->vec4[0][0] = vec[0][0], this->vec4[0][1] = vec[0][1], this->vec4[0][2] = vec[0][2], this->vec4[3][0] = vec[3][0];
 
@@ -518,3 +516,9 @@ public:
 		return *this;
 	}
 };
+
+float radians(float gak) {
+	float f;
+	f = gak * PI / 180;
+	return f;
+}
